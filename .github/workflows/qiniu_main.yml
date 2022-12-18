@@ -26,12 +26,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pwd
-          go install https://github.com/qiniu/qshell@latest
-          qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
-          qshell qupload2 --worker 10 --src-dir /home/runner/work/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
+          git clone git@github.com:qiniu/qshell.git
+          cd qshell
+          go build -o qshell
+      - name: Upload Files
+        run: |    
+          ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
+          ./qshell qupload2 --worker 10 --src-dir /home/runner/work/algorithm/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
 
-      - name: echo log
+      - name: Echo Log
         run: |
           echo "success file list:"
           cat success.txt
