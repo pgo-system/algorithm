@@ -32,7 +32,7 @@ jobs:
       - name: Upload Files
         run: |
           ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
-          ./qshell qupload2 --src-dir /home/runner/work/algorithm/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
+          ./qshell qupload2 --src-dir /home/runner/work/algorithm/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check-exists true --check-hash true --skip-suffixes ".github/,.git/" --skip-file-prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
       - name: Echo Log
         run: |
           echo "success file list:"
