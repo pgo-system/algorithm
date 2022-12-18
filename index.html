@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>pgo-算法学习</title>
+  <meta name="description" content="算法学习记录">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/prism.css"> -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+
+
+  <!-- 百度统计 -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0039b85b02fdd03dc3fe4c27c6f008a2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js" async></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div style="position: fixed; right: 0; bottom: 0; z-index: 99999;">
+    <div class="wwads-cn wwads-vertical" data-id="126" style="max-width:150px"></div>
+  </div>
+  <!-- mermind 支持 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    var num = 0;
+    mermaid.initialize({ startOnLoad: false });
+
+    window.$docsify = {
+      repo: 'https://github.com/pgo-system/algorithm',
+      logo: 'http://static.pgoer.com/algorithms/logo.png',
+      coverpage: true, // 是否配置封面
+      loadSidebar: true, // 侧边栏配置
+      alias: {
+        '/.*/_navbar.md': '_navbar.md',
+      },
+      subMaxLevel: 2, // 侧边栏显示层级
+      loadNavbar: true, // 导航栏
+      mergeNavbar: true, //小屏设备下合并导航栏到侧边栏
+      auto2top: true, // 切换页面后是否自动跳转到页面顶部
+      markdown: { // markdown mermaid 支持
+        renderer: {
+          code: function (code, lang) {
+            if (lang === "mermaid") {
+              return (
+                '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+              );
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+
+      plugins: [
+        // footer
+        function(hook) {
+          var ad = [
+            '<div style="padding: 0em 30% 1em 30%; background-color: #E8ECF1;">特别赞助 by: <br/>', 
+              '<a target="_blank" href="https://www.baidu.com?from=pgoer"><img src="http://static.pgoer.com/ad/baidu.png" style="margin-top:5px;"></a><br/>',
+            '</div><br/>'
+          ].join('');
+
+          var footer = [
+            '<hr/>',
+            '<footer style="text-align: center;">',
+              '<a href="https://docsify.js.org" target="_blank">Powered by docsify</a></span><br/><br/>',
+              '<span><img src="http://www.beian.gov.cn/img/new/gongan.png"/>&nbsp;<a href="https://www.beian.gov.cn/portal/registerSystemInfo" target="_blank" style="color: grey; text-decoration: none;">京公网安备20002703号</a></span>',
+              '&nbsp;&nbsp;&nbsp;<span><a href="https://beian.miit.gov.cn" target="_blank" style="color: grey; text-decoration: none;">京ICP备20002703号</a></span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function(html) {
+            return ad + html + footer;
+          });
+        }
+      ]
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <!-- 语法高亮支持 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+
+</body>
+
+</html>
