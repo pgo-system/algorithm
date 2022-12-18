@@ -26,12 +26,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-         sudo apt install qshell
+          mkdir -p /home/runner/work/algorithm/algorithm/qshell
+          cd /home/runner/work/algorithm/algorithm/qshell
+          wget https://github.com/qiniu/qshell/releases/download/v2.9.1/qshell-v2.9.1-linux-386.tar.gz
+          tar -zxvf qshell-v2.9.1-linux-386.tar.gz
       - name: Upload Files
-        run: |    
+        run: |
           ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
           ./qshell qupload2 --worker 10 --src-dir /home/runner/work/algorithm/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
-
       - name: Echo Log
         run: |
           echo "success file list:"
