@@ -32,49 +32,8 @@ jobs:
       - name: Upload Files
         run: |
           ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
-name: qiniu_main
-
-on:
-  push:
-    branches: [ 'main' ]
-  pull_request:
-    branches: [ 'main' ]
-
-jobs:
-  build:
-    strategy:
-      matrix:
-        platform: [ubuntu-latest]
-        go-version: [1.19]
-    runs-on:  ${{ matrix.platform }}
-    steps: 
-      - name: Setup Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: ${{ matrix.go-version }}
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: docs
-
-      - name: Install dependencies
-        run: |
-          cd /home/runner/work/algorithm/algorithm/
-          wget https://github.com/qiniu/qshell/releases/download/v2.9.1/qshell-v2.9.1-linux-386.tar.gz
-          tar -zxvf qshell-v2.9.1-linux-386.tar.gz
-      - name: Upload Files
-        run: |
-          ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
           ./qshell qupload2 --src-dir /home/runner/work/algorithm/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --overwrite true --check-exists true --check-hash true --skip-path-prefixes ".github/,.git/" --skip-file-prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
       - name: Echo Log
-        run: |
-          echo "success file list:"
-          cat success.txt
-          echo "failure file list:"
-          cat failure.txt
-          echo "overwrite file list:"
-          cat overwrite.txt      - name: Echo Log
         run: |
           echo "success file list:"
           cat success.txt
