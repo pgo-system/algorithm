@@ -21,13 +21,15 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          path: docs
 
       - name: Install dependencies
         run: |
           pwd
           go install https://github.com/qiniu/qshell@latest
           qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
-          qshell qupload2 --worker 10 --src-dir ./ --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
+          qshell qupload2 --worker 10 --src-dir /home/runner/work/algorithm/docs --bucket ${{ secrets.qiniu_bucket }} --check_exists true --check_hash true --skip-suffixes ".github/,.git/" --skip_file_prefixes ".gitignore,.nojekyll" --success-list success.txt --failure-list failure.txt --overwrite-list overwrite.txt
 
       - name: echo log
         run: |
