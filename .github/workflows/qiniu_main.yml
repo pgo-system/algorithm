@@ -26,8 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          mkdir -p /home/runner/work/algorithm/algorithm/qshell
-          cd /home/runner/work/algorithm/algorithm/qshell
+          cd /home/runner/work/algorithm/algorithm/
           wget https://github.com/qiniu/qshell/releases/download/v2.9.1/qshell-v2.9.1-linux-386.tar.gz
           tar -zxvf qshell-v2.9.1-linux-386.tar.gz
       - name: Upload Files
