@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-         yum install qshell -y
+         sudo apt install qshell
       - name: Upload Files
         run: |    
           ./qshell account -- ${{ secrets.qiniu_AccessKey }} ${{ secrets.qiniu_SecretKey }} github
